@@ -1,17 +1,40 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { render } from 'react-dom';
+import loadable from '@loadable/component';
+import { Provider } from 'react-redux';
+import { Row, Col } from 'reactstrap';
+import styled from 'styled-components';
+import store from './redux';
+import './index.scss';
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+const Quote = styled.p`
+  line-height: 100vh;
+  color: #ffffff;
+  text-align: center;
+  drop-shadow: 20px 20px 20px #ccc;
+  font-size: 2rem;
+  font-weight: 900;
+`;
+
+const Bootstrap = loadable.lib(() => import('bootstrap/dist/css/bootstrap.min.css'));
+const Theme = loadable.lib(() => import('./scss/index.scss'));
+
+const AppComponent = loadable(() => import('./App'), {
+  fallback: <Row className="justify-content-center align-items-center">
+    <Col>
+      <Quote>Be the change you wish to see</Quote>
+    </Col>
+  </Row>
+});
+
+render(
+  <Provider store={store}>
+    <Bootstrap />
+    <Theme />
+    <AppComponent />
+  </Provider>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

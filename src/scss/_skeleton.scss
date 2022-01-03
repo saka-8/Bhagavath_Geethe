@@ -1,0 +1,14 @@
+.text-box {
+  width: 100%;
+  transition: animation 2s ease;
+  animation: skeletonAnimation 1s infinite;
+}
+
+@keyframes skeletonAnimation {
+  from {
+    width: 50%;
+  }
+  to {
+    width: 100%;
+  }
+}
