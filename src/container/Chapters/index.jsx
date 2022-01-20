@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Row, Col, Container } from "reactstrap";
@@ -20,23 +20,28 @@ const Chapters = ({ chapters, fetchChapters }) => {
   }
 
   const init = async () => {
-    await fetchChapters();
-    setList(
-      chapters.sort((a, b) => {
-        return a.chapter_number - b.chapter_number;
-      })
-    );
+    await fetchChapters()
+      .then(response => {
+        console.log(response);
+        setList(
+          chapters.sort((a, b) => {
+            return a.chapter_number - b.chapter_number;
+          })
+        );
+      });
+    console.log(sortedList, 'soreted data');
   };
 
   useEffect(() => {
     init();
-    return () => {};
-  }, [chapters]);
+    return () => { };
+  }, [sortedList]);
 
   return (
     <Container fluid className="wrapper">
       <h2 className="text-center text-dark pt-2 pb-3">Chapters</h2>
       {!sortedList.length ? (
+        // {loading===true?(
         <Row xs="1" sm="2" md="3" xl="6" className="no-gutters">
           {skeletons}
         </Row>
@@ -45,7 +50,7 @@ const Chapters = ({ chapters, fetchChapters }) => {
           {sortedList.map((chapter) => (
             <Col key={chapter.chapter_number} className="p-2">
               <ChaptersCard
-                title={chapter.translation}
+                title={chapter.name_translated}
                 chapterNumber={chapter.chapter_number}
                 verseCount={chapter.verses_count}
               />
@@ -64,7 +69,7 @@ Chapters.propTypes = {
 
 Chapters.defaultProps = {
   chapters: [],
-  fetchChapters: () => {},
+  fetchChapters: () => { },
 };
 
 const mapStateToProps = ({ chaptersReducer: { chapters } }) => ({ chapters });

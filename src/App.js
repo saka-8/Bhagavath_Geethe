@@ -12,9 +12,9 @@ const App = () => {
       <Navbar />
       <Router>
         <Routes>
-          <Route path="/" component={Home} exact />
-          <Route path="/chapters" component={Chapters} exact />
-          <Route path="/chapter/:flag" component={Chapter} />
+          <Route path="/" element={<Home />}/>
+          <Route path="/chapters" element={<Chapters/>}/>
+          <Route path="/chapter/:flag" element={<Chapter/>} />
         </Routes>
       </Router>
     </div>

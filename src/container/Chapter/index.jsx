@@ -12,26 +12,29 @@ const Chapter = ({ fetchChapter, chapter }) => {
 
   const init = async () => {
     await fetchChapter(flag);
+    console.log(chapter);
   };
   useEffect(() => {
     init();
-    return () => {};
+    return () => { };
   }, []);
+
+
 
   return (
     <Container fluid className="wrapper p-0">
       <Row className="chapter-row no-gutters p-3">
         <Col>
           <h3 className="text-center py-3">{`Chapter ${chapter?.chapter_number}`}</h3>
-          <h5 className="text-center">{chapter?.verse_count}</h5>
-          <p className="lead text-center">{`${chapter?.name}   (${chapter?.translation})`}</p>
+          <h5 className="text-center">{chapter?.verses_count}</h5>
+          <p className="lead text-center">{`${chapter?.name}   (${chapter?.name_translated})`}</p>
           <h6>
-            <i className="font-weight-bold">Meaning:</i> {chapter.meaning?.en}
+            <i className="font-weight-bold">Meaning:</i> {chapter.name_meaning}
           </h6>
           <h3>Summary in Hindhi</h3>
-          <p>{chapter.summary?.hi}</p>
+          <p>{chapter.chapter_summary_hindi}</p>
           <h3>Summary in English</h3>
-          <p>{chapter.summary?.en}</p>
+          <p>{chapter.chapter_summary}</p>
         </Col>
       </Row>
     </Container>
@@ -44,7 +47,7 @@ Chapter.propTypes = {
 };
 
 Chapter.defaultProps = {
-  fetchChapter: () => {},
+  fetchChapter: () => { },
   chapter: {},
 };
 
