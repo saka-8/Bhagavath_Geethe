@@ -7,7 +7,7 @@ const Home = () => {
     <Container fluid className="wrapper text-center">
       <h1>Bhagavad Gita</h1>
       <Link to="/chapters">
-        <Button className="Chapter-button">Goto Chapters</Button>
+        <Button className="Chapter-button">Get Chapters</Button>
       </Link>
     </Container>
   );
